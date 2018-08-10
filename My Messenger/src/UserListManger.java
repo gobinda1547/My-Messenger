@@ -11,7 +11,7 @@ public class UserListManger {
 
 		try {
 
-			System.out.println(userListFileLocation);
+			//System.out.println(userListFileLocation);
 			File file = new File(userListFileLocation);
 			if (file.exists() == false) {
 				Formatter formatter = new Formatter(file);
