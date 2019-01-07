@@ -50,7 +50,7 @@ public class FileSender implements Runnable {
 
 				while ((read = fis.read(buffer, 0, (int) Math.min(buffer.length, remaining))) > 0) {
 					value = Math.min(100, (int) incrementor);
-					MyMessenger.showProgressMesseage("sending file : " + String.valueOf(value), value);
+					MyMessenger.showProgressMesseage("sent : " + String.valueOf(value), value);
 					dataOutputStream.write(buffer, 0, read);
 					dataOutputStream.flush();
 					remaining -= read;
@@ -59,11 +59,11 @@ public class FileSender implements Runnable {
 				fis.close();
 				socket.close();
 
-				MyMessenger.showProgressMesseage("file successfully sent!", 100);
+				MyMessenger.showProgressMesseage("sent successfully!", 100);
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				MyMessenger.showProgressMesseage("Problem occurs while sending file!", 100);
+				MyMessenger.showProgressMesseage("sent error!", 100);
 			}
 
 		}

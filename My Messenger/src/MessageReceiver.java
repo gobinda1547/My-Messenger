@@ -4,6 +4,8 @@ import java.net.Socket;
 
 public class MessageReceiver implements Runnable {
 
+	public static String lastMessage = "";
+	
 	public MessageReceiver() {
 		// System.out.println("message receiver waiting....");
 	}
@@ -16,11 +18,12 @@ public class MessageReceiver implements Runnable {
 				ServerSocket serverSocket = new ServerSocket(MyMessenger.messageReceiverPort);
 				Socket socket = serverSocket.accept();
 				DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-				String message = dataInputStream.readUTF();
-				MyMessenger.showMessageSet(message);
+				lastMessage = dataInputStream.readUTF();
 				serverSocket.close();
+				MyMessenger.showMessageToUser("Message Received!");
+				return;
 			} catch (Exception e) {
-				System.exit(00);
+				MyMessenger.showMessageToUser("Message Received Error!");
 			}
 		}
 

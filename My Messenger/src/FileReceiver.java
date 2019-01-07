@@ -17,7 +17,7 @@ public class FileReceiver implements Runnable {
 
 		while (true) {
 			try {
-				MyMessenger.showProgressMesseage("waiting to receive file..!", 0);
+				MyMessenger.showProgressMesseage("waiting..!", 0);
 				String fileWhereToSave = MyMessenger.parentFolder;
 
 				ServerSocket serverSocket = new ServerSocket(MyMessenger.fileReceiverPort);
@@ -48,7 +48,7 @@ public class FileReceiver implements Runnable {
 				while ((read = dataInputStream.read(buffer, 0, (int) Math.min(buffer.length, remaining))) > 0) {
 
 					value = Math.min(100, (int) incrementor);
-					MyMessenger.showProgressMesseage("receiving file : " + String.valueOf(value), value);
+					MyMessenger.showProgressMesseage("received : " + String.valueOf(value), value);
 					remaining -= read;
 					fos.write(buffer, 0, read);
 
@@ -56,18 +56,16 @@ public class FileReceiver implements Runnable {
 				}
 
 				fos.close();
-				MyMessenger.showProgressMesseage("completed file sending!", 100);
+				MyMessenger.showProgressMesseage("file sent!", 100);
 
 				socket.close();
 				serverSocket.close();
 
-				JOptionPane.showMessageDialog(null, "File Received successfully!");
+				MyMessenger.showMessageToUser("File Received!");
 
 			} catch (Exception e) {
-
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Problem occurs while receiving file!");
-
+				MyMessenger.showMessageToUser("File received error!");
 			}
 
 			MyMessenger.showProgressMesseage("disconnected!", 0);

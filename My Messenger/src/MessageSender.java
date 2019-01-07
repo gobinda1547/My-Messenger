@@ -1,8 +1,6 @@
 import java.io.DataOutputStream;
 import java.net.Socket;
 
-import javax.swing.JOptionPane;
-
 public class MessageSender implements Runnable {
 
 	private String receiverAddress;
@@ -22,9 +20,17 @@ public class MessageSender implements Runnable {
 			dataOutputStream.writeUTF(message);
 			dataOutputStream.flush();
 			socket.close();
-			JOptionPane.showMessageDialog(null, "message successfully sent!");
+			new Thread(new Runnable() {
+				public void run() {
+					MyMessenger.showMessageToUser("Message sent!");
+				}
+			}).start();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Problem occurs!");
+			new Thread(new Runnable() {
+				public void run() {
+					MyMessenger.showMessageToUser("Message didn't sent!");
+				}
+			}).start();
 		}
 	}
 
